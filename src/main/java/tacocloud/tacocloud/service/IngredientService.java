@@ -30,4 +30,17 @@ public class IngredientService {
         IngredientEntity savedEntity = repository.save(IngredientMapper.toEntity(ingredient));
         return IngredientMapper.toDto(savedEntity);
     }
+
+    public IngredientDto updateIngredient(long id, IngredientDto ingredient){
+        IngredientEntity entity = IngredientMapper.toEntity(ingredient);
+        entity.setId(id);
+        IngredientEntity savedEntity = repository.save(entity);
+        return IngredientMapper.toDto(savedEntity);
+    }
+
+    public void deleteIngredient(long id){
+        repository.findById(id).map(IngredientMapper::toDto);
+        repository.deleteById(id);
+
+    }
 }
