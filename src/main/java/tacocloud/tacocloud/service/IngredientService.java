@@ -3,6 +3,7 @@ package tacocloud.tacocloud.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tacocloud.tacocloud.dto.IngredientCategory;
 import tacocloud.tacocloud.dto.IngredientDto;
 import tacocloud.tacocloud.entity.IngredientEntity;
 import tacocloud.tacocloud.mapper.IngredientMapper;
@@ -26,6 +27,10 @@ public class IngredientService {
         return repository.findById(id).map(IngredientMapper::toDto);
     }
 
+    public Optional<IngredientDto> byIdOfCategory(long id, IngredientCategory category){
+        return repository.ofCategoryById(id,category.toString()).map(IngredientMapper::toDto);
+    }
+
     public IngredientDto createIngredient(IngredientDto ingredient){
         IngredientEntity savedEntity = repository.save(IngredientMapper.toEntity(ingredient));
         return IngredientMapper.toDto(savedEntity);
@@ -39,7 +44,6 @@ public class IngredientService {
     }
 
     public void deleteIngredient(long id){
-        repository.findById(id).map(IngredientMapper::toDto);
         repository.deleteById(id);
 
     }

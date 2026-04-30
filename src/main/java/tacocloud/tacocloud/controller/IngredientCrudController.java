@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/ingredient")
+@RequestMapping("/ingredient/")
 @RequiredArgsConstructor
 public class IngredientCrudController {
     private final IngredientService service;
@@ -24,7 +24,7 @@ public class IngredientCrudController {
     public List<IngredientDto> getAllIngredients() {
         return service.listAll();
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/")
     public ResponseEntity<IngredientDto> getIngredientById(@PathVariable Long id) {
         return service.byId(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -37,7 +37,7 @@ public class IngredientCrudController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new IngredientReport(result));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}/")
     public ResponseEntity<IngredientReport> updateIngredient(@PathVariable Long id, @RequestBody IngredientDto dto) {
         if (service.byId(id).isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new IngredientReport("Ingredient with the requested id does not exist"));
@@ -47,7 +47,7 @@ public class IngredientCrudController {
         return ResponseEntity.status(HttpStatus.OK).body(new IngredientReport(result));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/")
     public ResponseEntity<IngredientReport> deleteIngredient(@PathVariable Long id) {
         Optional<IngredientDto> deleted=service.byId(id);
         if (service.byId(id).isEmpty()){
