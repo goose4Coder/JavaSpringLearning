@@ -31,7 +31,7 @@ public class IngredientCrudController {
     }
 
     @PostMapping
-    public ResponseEntity<IngredientReport> getIngredientById(@RequestBody IngredientDto dto) {
+    public ResponseEntity<IngredientReport> createIngredient(@RequestBody IngredientDto dto) {
         IngredientDto result = service.createIngredient(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new IngredientReport(result));

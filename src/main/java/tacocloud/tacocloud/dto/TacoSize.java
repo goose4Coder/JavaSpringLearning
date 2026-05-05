@@ -1,7 +1,7 @@
 package tacocloud.tacocloud.dto;
 
 public enum TacoSize {
-    SMALL, MEDIUM, LARGE;
+    SMALL, MEDIUM, BIG;
     
 
     public static TacoSize fromString(String text){
@@ -11,6 +11,6 @@ public enum TacoSize {
             case "MEDIUM":
                 return MEDIUM;
         }
-        return LARGE;
+        return BIG;
     }
 }
