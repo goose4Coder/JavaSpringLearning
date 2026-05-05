@@ -24,4 +24,13 @@ public class IngredientMapper {
         }
         return IngredientEntity.builder().name(dto.getName()).category(dto.getCategory().toString()).build();
     }
+
+    static public IngredientEntity toEntityWithId(IngredientDto dto){
+        if (dto == null) {
+            return null;
+        }
+        return IngredientEntity.builder()
+                .id(dto.getId())
+                .name(dto.getName()).category(dto.getCategory().toString()).build();
+    }
 }

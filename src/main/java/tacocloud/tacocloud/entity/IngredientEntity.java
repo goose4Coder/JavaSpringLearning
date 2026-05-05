@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "ingredients")
 @Data
@@ -14,6 +17,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IngredientEntity {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,4 +28,7 @@ public class IngredientEntity {
 
     @Column(nullable = false)
     private String category;
+
+//    @ManyToMany(mappedBy = "ingredient")
+//    private List<TacoEntity> tacosWhereUsed;
 }

@@ -3,10 +3,6 @@ package tacocloud.tacocloud.dto;
 public enum IngredientCategory {
     MEAT,SAUCE,BREAD,VEGETABLE, EXTRA;
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 
     public static IngredientCategory fromString(String text){
         switch (text){

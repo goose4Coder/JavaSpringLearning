@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,12 @@ public class TacoEntity {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.PERSIST)
+    @ManyToMany
+    @JoinTable(
+            name = "taco_ingredient",
+            joinColumns = @JoinColumn(name = "taco_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
     private List<IngredientEntity> ingredients;
 
     @Column(nullable = false)
