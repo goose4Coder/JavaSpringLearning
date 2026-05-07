@@ -40,7 +40,7 @@ public class IngredientCrudController {
     @PatchMapping("/{id}/")
     public ResponseEntity<IngredientReport> updateIngredient(@PathVariable Long id, @RequestBody IngredientDto dto) {
         if (service.byId(id).isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new IngredientReport("Ingredient with the requested id does not exist"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new IngredientReport("Ingredient with the requested id does not exist"));
         }
         IngredientDto result = service.updateIngredient(id,dto);
 
@@ -51,7 +51,7 @@ public class IngredientCrudController {
     public ResponseEntity<IngredientReport> deleteIngredient(@PathVariable Long id) {
         Optional<IngredientDto> deleted=service.byId(id);
         if (service.byId(id).isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new IngredientReport("Ingredient with the requested id does not exist"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new IngredientReport("Ingredient with the requested id does not exist"));
         }
         service.deleteIngredient(id);
         return ResponseEntity.status(HttpStatus.OK).body(new IngredientReport(deleted.get()));

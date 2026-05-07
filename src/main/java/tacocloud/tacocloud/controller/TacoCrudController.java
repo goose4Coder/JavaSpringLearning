@@ -33,7 +33,7 @@ public class TacoCrudController {
     @PostMapping
     public ResponseEntity<TacoReport> createTaco(@RequestBody TacoCreationRequest toCreate){
         if (!tacoCreator.isTacoValid(toCreate).equals("Valid")){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new TacoReport(tacoCreator.isTacoValid(toCreate)));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new TacoReport(tacoCreator.isTacoValid(toCreate)));
         }
         TacoDto created = service.createTaco(tacoCreator.parseTaco(toCreate));
         return ResponseEntity.status(HttpStatus.OK).body(new TacoReport(created));
@@ -42,7 +42,7 @@ public class TacoCrudController {
     @PatchMapping("/{id}/")
     public ResponseEntity<TacoReport> updateTaco(@PathVariable Long id, @RequestBody TacoCreationRequest toUpdateWith){
         if (service.byId(id).isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new TacoReport("Taco with the requested id does not exist"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new TacoReport("Taco with the requested id does not exist"));
         }
         if (!tacoCreator.isTacoValid(toUpdateWith).equals("Valid")){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new TacoReport(tacoCreator.isTacoValid(toUpdateWith)));
@@ -55,7 +55,7 @@ public class TacoCrudController {
     public ResponseEntity<TacoReport> deleteTaco(@PathVariable Long id){
         Optional<TacoDto> deleted = service.byId(id);
         if (deleted.isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new TacoReport("Taco with the requested id does not exist"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new TacoReport("Taco with the requested id does not exist"));
         }
         service.deleteTaco(id);
         return ResponseEntity.status(HttpStatus.OK).body(new TacoReport(deleted.get()));
