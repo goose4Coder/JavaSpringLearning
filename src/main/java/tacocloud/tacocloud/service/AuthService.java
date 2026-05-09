@@ -2,6 +2,7 @@ package tacocloud.tacocloud.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,12 @@ public class AuthService {
         } else {
             throw new BadCredentialsException("Invalid password");
         }
+    }
+
+    public UserDetails getDetailsByUsername(String username) {
+        UserEntity user = userRepository.getByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return UserMapper.asDetails(user);
     }
 
     public void changePassword(String token, String newPassword) {

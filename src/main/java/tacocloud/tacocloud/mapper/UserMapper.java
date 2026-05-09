@@ -2,8 +2,11 @@ package tacocloud.tacocloud.mapper;
 
 
 import lombok.experimental.UtilityClass;
+import org.springframework.security.core.userdetails.UserDetails;
 import tacocloud.tacocloud.dto.UserDto;
 import tacocloud.tacocloud.entity.UserEntity;
+
+import java.util.Collections;
 
 @UtilityClass
 public class UserMapper {
@@ -24,5 +27,13 @@ public class UserMapper {
                 .id(user.getId())
                 .password("Hidden")
                 .build();
+    }
+
+    static public UserDetails asDetails(UserEntity user){
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                Collections.emptyList()
+        );
     }
 }
