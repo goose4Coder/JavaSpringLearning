@@ -2,18 +2,14 @@ package tacocloud.tacocloud.mapper;
 
 
 import lombok.experimental.UtilityClass;
-import org.springframework.web.bind.annotation.Mapping;
 import tacocloud.tacocloud.dto.IngredientDto;
 import tacocloud.tacocloud.dto.TacoDto;
 import tacocloud.tacocloud.dto.TacoSize;
 import tacocloud.tacocloud.entity.IngredientEntity;
 import tacocloud.tacocloud.entity.TacoEntity;
-import tacocloud.tacocloud.repository.IngredientRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @UtilityClass
 public class TacoMapper {

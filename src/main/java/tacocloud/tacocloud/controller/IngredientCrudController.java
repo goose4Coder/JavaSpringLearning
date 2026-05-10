@@ -4,12 +4,11 @@ package tacocloud.tacocloud.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import tacocloud.tacocloud.dto.IngredientDto;
 import tacocloud.tacocloud.dto.IngredientReport;
-import tacocloud.tacocloud.entity.IngredientEntity;
+
 import tacocloud.tacocloud.service.IngredientService;
 
 import java.util.List;

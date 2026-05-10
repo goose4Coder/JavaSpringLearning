@@ -9,9 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import tacocloud.tacocloud.dto.UserDto;
 import tacocloud.tacocloud.service.AuthService;
-import tacocloud.tacocloud.service.UserService;
 import tacocloud.tacocloud.utils.JwtUtil;
 
 import java.io.IOException;
