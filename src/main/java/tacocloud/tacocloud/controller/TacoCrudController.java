@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/taco/")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TacoCrudController {
     private final TacoService service;

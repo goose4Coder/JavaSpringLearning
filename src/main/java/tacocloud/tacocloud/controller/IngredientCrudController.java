@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/ingredient/")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class IngredientCrudController {
     private final IngredientService service;

@@ -30,25 +30,20 @@ public class TokenAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
         try {
-            System.out.println("Try");
+
             String jwt = parseJwt(request);
 //            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-            System.out.println("jwt");
-            if (jwt != null) {
 
+            if (jwt != null) {
                 String username = jwtUtils.extractUsername(jwt);
-                System.out.println("usr");
                 UserDetails userDetails = authService.getDetailsByUsername(username);
-                System.out.println("User got");
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
                                 userDetails.getAuthorities()
                         );
-                System.out.println("Data done");
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                System.out.println("Details set");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
@@ -57,6 +52,7 @@ public class TokenAuthFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
     private String parseJwt(HttpServletRequest request) {
+        //TODO: do the header reception conventionally
         String headerAuth = request.getHeader("Authorization");
         if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7);
