@@ -25,7 +25,7 @@ public class UserMapper {
         return UserDto.builder()
                 .username(user.getUsername())
                 .id(user.getId())
-                .password("Hidden")
+                .password("Hidden for security reasons")
                 .build();
     }
 

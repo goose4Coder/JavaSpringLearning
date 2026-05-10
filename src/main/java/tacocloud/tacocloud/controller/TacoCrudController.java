@@ -23,14 +23,18 @@ import java.util.Optional;
 public class TacoCrudController {
     private final TacoService service;
     private final TacoRequestParsingService tacoCreator;
+
+
     @GetMapping
     public List<TacoDto> getAllTacos(){
         return service.listAll();
     }
+
     @GetMapping("/{id}/")
     public Optional<TacoDto> getById(@PathVariable Long id){
         return service.byId(id);
     }
+
     @PostMapping
     public ResponseEntity<TacoReport> createTaco(@RequestBody TacoCreationRequest toCreate){
         if (!tacoCreator.isTacoValid(toCreate).equals("Valid")){
