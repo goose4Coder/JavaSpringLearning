@@ -1,0 +1,45 @@
+package tacocloud.tacocloud.service;
+
+
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import tacocloud.tacocloud.dto.IngredientCategory;
+import tacocloud.tacocloud.dto.IngredientDto;
+import tacocloud.tacocloud.entity.IngredientEntity;
+import tacocloud.tacocloud.repository.IngredientRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+public class IngredientServiceTest {
+    @MockitoBean
+    private IngredientRepository repository;
+    @InjectMocks
+    private IngredientService service;
+
+    @Test
+    public void testById_givesCorrectIngredient(){
+        List<IngredientEntity> toTestWith= new ArrayList<IngredientEntity>();
+        toTestWith.add(IngredientEntity.builder().name("Secret sauce").id(0L).category("SAUCE").build());
+        toTestWith.add(IngredientEntity.builder().name("Wheat tortilla").id(1L).category("BREAD").build());
+        when(repository.findById(1L)).thenReturn(Optional.of(toTestWith.get(1)));
+        Optional<IngredientDto> toCheck = service.byId(1);
+        Assertions.assertTrue(toCheck.isPresent());
+        Assertions.assertEquals(1, toCheck.get().getId());
+        Assertions.assertEquals(IngredientCategory.BREAD, toCheck.get().getCategory());
+        Assertions.assertEquals("Wheat tortilla", toCheck.get().getName());
+
+    }
+
+
+
+
+}

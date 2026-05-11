@@ -2,6 +2,7 @@ package tacocloud.tacocloud.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tacocloud.tacocloud.dto.IngredientCategory;
 import tacocloud.tacocloud.dto.IngredientDto;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class IngredientService {
+    @Autowired
     private final IngredientRepository repository;
 
     public List<IngredientDto> listAll() {
