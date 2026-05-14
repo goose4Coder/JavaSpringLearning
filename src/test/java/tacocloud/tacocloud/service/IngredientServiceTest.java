@@ -1,10 +1,11 @@
 package tacocloud.tacocloud.service;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import tacocloud.tacocloud.dto.IngredientCategory;
@@ -16,11 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class IngredientServiceTest {
-    @MockitoBean
+    @Mock
     private IngredientRepository repository;
     @InjectMocks
     private IngredientService service;
@@ -38,6 +40,20 @@ public class IngredientServiceTest {
         Assertions.assertEquals("Wheat tortilla", toCheck.get().getName());
 
     }
+
+    @Test
+    public void createIngredient_createsCorrectly(){
+        IngredientEntity entity=IngredientEntity.builder().name("Secret sauce").id(1L).category("SAUCE").build();
+        IngredientDto dto= IngredientDto.builder().name("Secret sauce").category(IngredientCategory.SAUCE).id(2L).build();
+        when(repository.save(any(IngredientEntity.class))).thenReturn(entity);
+        IngredientDto toCheck = service.createIngredient(dto);
+        Assertions.assertEquals(1, toCheck.getId());
+        Assertions.assertEquals(IngredientCategory.SAUCE, toCheck.getCategory());
+        Assertions.assertEquals("Secret sauce", toCheck.getName());
+
+    }
+
+
 
 
 
