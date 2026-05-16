@@ -7,14 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tacocloud.tacocloud.dto.IngredientCategory;
-import tacocloud.tacocloud.dto.IngredientDto;
 import tacocloud.tacocloud.dto.TacoDto;
 import tacocloud.tacocloud.dto.TacoSize;
 import tacocloud.tacocloud.entity.IngredientEntity;
 import tacocloud.tacocloud.entity.TacoEntity;
 import tacocloud.tacocloud.mapper.IngredientMapper;
-import tacocloud.tacocloud.mapper.TacoMapper;
 import tacocloud.tacocloud.repository.TacoRepository;
 
 import java.util.ArrayList;
