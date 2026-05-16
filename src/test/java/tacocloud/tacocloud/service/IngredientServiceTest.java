@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +38,31 @@ public class IngredientServiceTest {
         Assertions.assertEquals(1, toCheck.get().getId());
         Assertions.assertEquals(IngredientCategory.BREAD, toCheck.get().getCategory());
         Assertions.assertEquals("Wheat tortilla", toCheck.get().getName());
+
+    }
+    @Test
+    public void testByIdOfCategory_givesCorrectIngredient(){
+        List<IngredientEntity> toTestWith= new ArrayList<IngredientEntity>();
+        IngredientEntity sauce=IngredientEntity.builder().name("Secret sauce").id(0L).category("SAUCE").build();
+        when(repository.ofCategoryById(0,"SAUCE")).thenReturn(Optional.of(sauce));
+
+        Optional<IngredientDto> toCheck = service.byIdOfCategory(0,IngredientCategory.SAUCE);
+        Assertions.assertTrue(toCheck.isPresent());
+        Assertions.assertEquals(0, toCheck.get().getId());
+        Assertions.assertEquals(IngredientCategory.SAUCE, toCheck.get().getCategory());
+        Assertions.assertEquals("Secret sauce", toCheck.get().getName());
+
+    }
+
+    @Test
+    public void testByIdOfCategory_notFoundWhenWrongCategory(){
+        List<IngredientEntity> toTestWith= new ArrayList<IngredientEntity>();
+        IngredientEntity sauce=IngredientEntity.builder().name("Secret sauce").id(0L).category("SAUCE").build();
+        Mockito.lenient().when(repository.ofCategoryById(anyLong(),anyString())).thenReturn(Optional.empty());
+        Mockito.lenient().when(repository.ofCategoryById(0,"SAUCE")).thenReturn(Optional.of(sauce));
+        Optional<IngredientDto> toCheck = service.byIdOfCategory(0,IngredientCategory.BREAD);
+        Assertions.assertTrue(toCheck.isEmpty());
+
 
     }
 
@@ -77,11 +101,6 @@ public class IngredientServiceTest {
         Assertions.assertEquals("Secret sauce", toCheck.getName());
 
     }
-
-
-
-
-
 
 
 }
